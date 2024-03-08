@@ -6,8 +6,14 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:19:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/01/16 16:42:16 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/08 13:58:47 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
+
+int	main(int argc, char **argv)
+{
+	
+	return (0);
+}

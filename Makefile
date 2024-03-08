@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/01/16 16:43:06 by vboulang         ###   ########.fr        #
+#    Updated: 2024/03/08 13:02:53 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,6 @@ RM			=	rm -rf
 MK			=	mkdir -p
 
 #Source files
-
 SRC			= 	push_swap.c \
 				moves_s_p.c \
 				moves_rr.c	\
