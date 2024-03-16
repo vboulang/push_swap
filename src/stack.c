@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:24:36 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/15 16:48:36 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/16 13:56:24 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	addback_st(t_stack *st, t_stack *new, int *order_check)
 	tmp = st;
 	while (tmp->next)
 	{
+		printf("%d %d\n", tmp->value, new->value);
 		if (tmp->value == new->value)
 		{
 			write(2, "Error\n", 6);

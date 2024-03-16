@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:19:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/15 16:51:54 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:53:19 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	create_stack(char **strs, t_stack *st)
 	{
 		new_st(&new, ft_atoi(strs[i]));
 		addback_st(st, &new, &order_check);
+		i++;
 	}
 	if (order_check == 0)
 	{
