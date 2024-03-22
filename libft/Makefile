@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/17 10:38:43 by vboulang          #+#    #+#              #
-#    Updated: 2024/01/05 14:25:05 by vboulang         ###   ########.fr        #
+#    Updated: 2024/03/22 15:45:17 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,12 @@ NAME = libft.a
 SRCDIR		=	src
 INCDIR		=	inc
 OBJDIR		=	obj
+
+#Colors
+COLOUR_GREEN=\033[0;32m
+COLOUR_RED=\033[0;31m
+COLOUR_BLUE=\033[0;34m
+COLOUR_END=\033[0m
 
 #Source files
 SRC = \
@@ -92,23 +98,31 @@ MK = mkdir -p
 all: $(NAME)
 
 $(OBJDIR):
-	$(MK) $(OBJDIR)
+	@$(MK) $(OBJDIR)
 
 $(OBJDIR)/%.o: %.c #$(INC)
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME):	$(OBJDIR) $(OBJ)
-	$(AR) -rcs $(NAME) $(OBJ)
+	@echo "$(COLOUR_GREEN)Creating Libft Archive...$(COLOUR_END)"
+	@$(AR) -rcs $(NAME) $(OBJ)
+	@echo "$(COLOUR_GREEN)Libft Archive Created$(COLOUR_END)"
 
 
 bonus: $(OBJDIR) $(OBJ) $(OBJ_BONUS)
+	@echo "$(COLOUR_GREEN)Creating Libft_bonus Archive...$(COLOUR_END)"
 	$(AR) -r $(NAME) $?
+	@echo "$(COLOUR_GREEN)Libft_bonus Archive Created$(COLOUR_END)"
 
 clean:
-	$(RM) $(OBJDIR)
+	@echo "$(COLOUR_GREEN)Cleaning Libft...$(COLOUR_END)"
+	@$(RM) $(OBJDIR)
+	@echo "$(COLOUR_GREEN)Libft Cleaned$(COLOUR_END)"
 
 fclean: clean
-	$(RM) $(NAME)
+	@echo "$(COLOUR_GREEN)Removing Libft...$(COLOUR_END)"
+	@$(RM) $(NAME)
+	@echo "$(COLOUR_GREEN)Libft Removed$(COLOUR_END)"
 
 re: fclean all
 

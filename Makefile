@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/03/15 16:22:05 by vboulang         ###   ########.fr        #
+#    Updated: 2024/03/22 18:21:33 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,19 @@ NAME		=	push_swap
 
 #Compiling variables
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
 
 #Directories
 LIBDIR			=	libft
 SRCDIR			=	src
 INCDIR			=	inc
 OBJDIR			=	obj
+
+#Colors
+COLOUR_GREEN=\033[0;32m
+COLOUR_RED=\033[0;31m
+COLOUR_BLUE=\033[0;34m
+COLOUR_END=\033[0m
 
 #Library names
 LIBFT		=	$(LIBDIR)/libft.a
@@ -48,22 +54,28 @@ OBJ			=	$(addprefix $(OBJDIR)/,$(SRC:%.c=%.o))
 all: $(NAME)
 
 $(NAME):	$(OBJDIR) $(OBJ)
-	make -C $(LIBDIR)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	@make -C $(LIBDIR)
+	@echo "$(COLOUR_GREEN)Compiling push_swap...$(COLOUR_END)"
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	@echo "$(COLOUR_GREEN)Creating Libft Archive...$(COLOUR_END)"
 
 $(OBJDIR)/%.o: %.c $(INC)
-	$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/inc -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/inc -c $< -o $@
 
 $(OBJDIR):
-	$(MK) $(OBJDIR)
+	@$(MK) $(OBJDIR)
 
 clean:
-	$(RM) $(OBJDIR)
-	make -C $(LIBDIR) clean
+	@echo "$(COLOUR_GREEN)Cleaning push_swap...$(COLOUR_END)"
+	@$(RM) $(OBJDIR)
+	@echo "$(COLOUR_GREEN)push_swap Cleaned$(COLOUR_END)"
+	@make -C $(LIBDIR) clean
 
 fclean: clean
-	$(RM) $(NAME)
-	make -C $(LIBDIR) fclean
+	@echo "$(COLOUR_GREEN)Removing push_swap...$(COLOUR_END)"
+	@$(RM) $(NAME)
+	@echo "$(COLOUR_GREEN)push_swap Removed$(COLOUR_END)"
+	@make -C $(LIBDIR) fclean
 
 re: fclean all
 

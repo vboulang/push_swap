@@ -6,38 +6,57 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:19:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/15 18:53:19 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:20:52 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void	create_stack(char **strs, t_stack *st)
+// void	push_swap(t_stack **stack_a, t_stack **stack_b)
+// {
+	
+// }
+int		check_order(t_stack **st)
+{
+	t_stack	*tmp;
+
+	tmp = (*st);
+	while(tmp->next)
+	{
+		if (tmp->value > tmp->next->value)
+			return (0);
+		tmp = tmp->next;
+	}
+	if (tmp->value > tmp->next->value)
+		return (1);
+	else
+		return (0);
+}
+
+void	create_stack(char **strs, t_stack **st)
 {
 	int		i;
-	int		order_check;
-	t_stack	new;
+	t_stack	*new;
 
 	i = 0;
 	while (strs[i])
 	{
-		new_st(&new, ft_atoi(strs[i]));
-		addback_st(st, &new, &order_check);
+		new = new_st(ft_atoi(strs[i]));
+		addback_st(st, new);
 		i++;
 	}
-	if (order_check == 0)
+	if (check_order(st))
 	{
-		printf("yo");
-		//sort
+		//TODO FREE STRUCT
+		exit(EXIT_SUCCESS);
 	}
-	//item = ft_lstnew(ft_atoi(split_av[i]))
-	//ft_lstadd_back(st, item)
+	loop(st);
 }
 
-void load_args(int ac, char **av, t_stack *st)
+void load_args(int ac, char **av, t_stack **st)
 {
 	char	**strs;
-	
+
 	if (ac == 2)
 	{
 		strs = ft_split(av[1], ' ');
@@ -49,21 +68,28 @@ void load_args(int ac, char **av, t_stack *st)
 		create_stack(strs, st);
 	}
 	else
-		create_stack(av, st);
-	
+		create_stack(++av, st);
+}
+
+void	print_value(t_stack **st)
+{
+	while ((*st)->prev)
+	{
+		printf("%d\n", (*st)->value);
+		(*st) = (*st)->prev;
+	}
 }
 
 int	main(int argc, char **argv)
 {
-	t_stack	stack_a;
-	//t_stack	stack_b;
-	
+	t_stack	*stack_a;
+	//t_stack	*stack_b;
+
 	if (argc >= 2)
 	{
 		load_args(argc, argv, &stack_a);
+		print_value(&stack_a);
 		//push_swap(&stack_a, &stack_b);
 	}
-	else
-		printf("Please provide arguments.");
 	return (0);
 }

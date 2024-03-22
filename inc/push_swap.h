@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:17:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/15 16:35:55 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:13:39 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <stdlib.h>
 # include "../libft/inc/libft.h"
 
-
-
 typedef struct s_stack
 {
 	struct s_stack	*next;
@@ -26,11 +24,25 @@ typedef struct s_stack
 	int				value;
 }	t_stack;
 
-void	addback_st(t_stack *st, t_stack *new, int *order_check);
-void	new_st(t_stack *st, int value);
+void	loop(t_stack **st);
+void	addback_st(t_stack **st, t_stack *new);
+t_stack	*new_st(int value);
 
-void	create_stack(char **strs, t_stack *st);
-void 	load_args(int ac, char **av, t_stack *st);
+void	print_value(t_stack **st);
+void	create_stack(char **strs, t_stack **st);
+void	load_args(int ac, char **av, t_stack **st);
 int		main(int argc, char **argv);
+
+void	pa(t_stack **sta, t_stack **stb);
+void	pb(t_stack **sta, t_stack **stb);
+void	sa(t_stack **st, int out);
+void	sb(t_stack **st, int out);
+void	ss(t_stack **sta, t_stack **stb);
+void	rra(t_stack **st, int out);
+void	rrb(t_stack **st, int out);
+void	rrr(t_stack **sta, t_stack **stb);
+void	ra(t_stack **st, int out);
+void	rb(t_stack **st, int out);
+void	rr(t_stack **sta, t_stack **stb);
 
 #endif
