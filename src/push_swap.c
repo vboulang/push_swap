@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:19:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/22 18:20:52 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:39:44 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	create_stack(char **strs, t_stack **st)
 	i = 0;
 	while (strs[i])
 	{
+		dprintf(1, "Hey! I am %s !\n", strs[i]);
 		new = new_st(ft_atoi(strs[i]));
 		addback_st(st, new);
 		i++;
@@ -73,10 +74,17 @@ void load_args(int ac, char **av, t_stack **st)
 
 void	print_value(t_stack **st)
 {
-	while ((*st)->prev)
+	int	i;
+	int ok;
+
+	ok = 1;
+	i = (*st)->value;
+	while ((*st)->next && ok)
 	{
 		printf("%d\n", (*st)->value);
-		(*st) = (*st)->prev;
+		(*st) = (*st)->next;
+		if ((*st)->value == i)
+			ok = 0;
 	}
 }
 

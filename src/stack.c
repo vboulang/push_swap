@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
+/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:24:36 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/22 18:13:48 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:36:33 by vincent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,33 @@ t_stack	*new_st(int value)
 {
 	t_stack	*st;
 
+	dprintf(1, "Hi! I am new here!\n");
 	st = malloc(sizeof(t_stack));
 	if (!st)
 		return (NULL);
 	st->value = value;
 	st->next = NULL;
 	st->prev = NULL;
+	dprintf(1, "CREATED\n");
 	return (st);
 }
 
 t_stack	*last_n_check_st(t_stack *st, int val)
 {
-	if (!st)
+	t_stack *tmp;
+	
+	tmp = st;
+	if (!tmp)
 		return (NULL);
-	while (st->next)
+	while (tmp->next)
 	{
-		// printf("%d %d\n", st->value, val);
-		check_val(st->value, val);
-		st = st->next;
+		dprintf(1,"%d %d\n", tmp->value, val);
+		check_val(tmp->value, val);
+		tmp = tmp->next;
 	}
-	check_val(st->value, val);
-	return (st);
+	dprintf(1, "%d\n", tmp->next->value);
+	check_val(tmp->value, val);
+	return (tmp);
 }
 
 void	loop(t_stack **st)
@@ -64,16 +70,16 @@ void	addback_st(t_stack **st, t_stack *new)
 {
 	t_stack *tmp;
 
-	if ((*st))
+	if (*st)
 	{
-		tmp = last_n_check_st((*st), new->value);
-		// printf("%d %d --\n", tmp->value, new->value);
+		tmp = last_n_check_st(*st, new->value);
+		dprintf(1,"%d %d --\n", tmp->value, new->value);
 		tmp->next = new;
 		new->prev = tmp;
 	}
 	else
 	{
-		//printf("%d\n", new->value);
+		dprintf(1,"%d\n", new->value);
 		(*st) = new;
 	}
 }

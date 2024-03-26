@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
+#    By: vincent <vincent@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/03/22 18:21:33 by vboulang         ###   ########.fr        #
+#    Updated: 2024/03/26 15:52:51 by vincent          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
