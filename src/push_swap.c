@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:19:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/26 14:39:44 by vincent          ###   ########.fr       */
+/*   Updated: 2024/03/27 17:34:44 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	create_stack(char **strs, t_stack **st)
 	i = 0;
 	while (strs[i])
 	{
-		dprintf(1, "Hey! I am %s !\n", strs[i]);
+		dprintf(1, "strs %s\n", strs[i]);
 		new = new_st(ft_atoi(strs[i]));
 		addback_st(st, new);
 		i++;
@@ -81,7 +81,7 @@ void	print_value(t_stack **st)
 	i = (*st)->value;
 	while ((*st)->next && ok)
 	{
-		printf("%d\n", (*st)->value);
+		dprintf(1,"%d\n", (*st)->value);
 		(*st) = (*st)->next;
 		if ((*st)->value == i)
 			ok = 0;
@@ -96,6 +96,7 @@ int	main(int argc, char **argv)
 	if (argc >= 2)
 	{
 		load_args(argc, argv, &stack_a);
+		dprintf(1, "\n\n");
 		print_value(&stack_a);
 		//push_swap(&stack_a, &stack_b);
 	}

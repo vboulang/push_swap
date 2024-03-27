@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vincent <vincent@student.42.fr>            +#+  +:+       +#+         #
+#    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/03/26 15:52:51 by vincent          ###   ########.fr        #
+#    Updated: 2024/03/27 17:32:00 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,11 +56,11 @@ all: $(NAME)
 $(NAME):	$(OBJDIR) $(OBJ)
 	@make -C $(LIBDIR)
 	@echo "$(COLOUR_GREEN)Compiling push_swap...$(COLOUR_END)"
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 	@echo "$(COLOUR_GREEN)Creating Libft Archive...$(COLOUR_END)"
 
 $(OBJDIR)/%.o: %.c $(INC)
-	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/inc -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/inc -c $< -o $@
 
 $(OBJDIR):
 	@$(MK) $(OBJDIR)
