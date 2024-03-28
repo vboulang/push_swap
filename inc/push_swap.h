@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:17:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/22 18:13:39 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:15:08 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ typedef struct s_stack
 void	loop(t_stack **st);
 void	addback_st(t_stack **st, t_stack *new);
 t_stack	*new_st(int value);
+int		size_st(t_stack **st);
 
 void	print_value(t_stack **st);
+void	print_value_rev(t_stack **st);
 void	create_stack(char **strs, t_stack **st);
 void	load_args(int ac, char **av, t_stack **st);
 int		main(int argc, char **argv);

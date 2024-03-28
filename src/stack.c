@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:24:36 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/27 17:33:39 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:57:13 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_stack	*last_n_check_st(t_stack *st, int val)
 	tmp = st;
 	while (tmp->next)
 	{
-		dprintf(1,"%d %d\n", tmp->value, val);
+		//dprintf(1,"%d %d\n", tmp->value, val);
 		check_val(tmp->value, val);
 		tmp = tmp->next;
 	}
@@ -50,21 +50,26 @@ t_stack	*last_n_check_st(t_stack *st, int val)
 	return (tmp);
 }
 
-void	loop(t_stack **st)
+t_stack	*last_st(t_stack *st)
 {
 	t_stack *tmp;
-
-	tmp = (*st);
-	while ((*st)->next)
-		(*st) = (*st)->next;
-	tmp->prev = (*st);
-	(*st)->next = tmp;
+	
+	// if (!st)
+	// 	return (NULL);
+	tmp = st;
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+	}
+	return (tmp);
 }
+
 
 void	addback_st(t_stack **st, t_stack *new)
 {
 	t_stack *tmp;
 
+	
 	if (*st)
 	{
 		tmp = last_n_check_st(*st, new->value);
@@ -72,7 +77,42 @@ void	addback_st(t_stack **st, t_stack *new)
 		new->prev = tmp;
 	}
 	else
-	{
 		(*st) = new;
+}
+
+void	loop(t_stack **st)
+{
+	t_stack *tmp;
+
+	tmp = last_st((*st));
+	if (!tmp)
+	{
+		write(1, "END\n", 4);
 	}
+	(*st)->prev = tmp;
+	tmp->next = (*st);
+}
+
+int	size_st(t_stack **st)
+{
+	int	i;
+	int	count;
+	int ok;
+	
+	if (!(*st))
+		return (0);
+	count = 0;
+	ok = 1;
+	i = (*st)->value;
+	while ((*st) && ok)
+	{
+		count++;
+		(*st) = (*st)->next;
+		if (*st)
+		{
+			if ((*st)->value == i)
+				ok = 0;
+		}
+	}
+	return (count);
 }

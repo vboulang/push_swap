@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:31:49 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/22 17:23:27 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:16:59 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,39 @@
 void	sa(t_stack **st, int out)
 {
 	t_stack	*tmp;
-	
-	tmp = (*st)->next;
-	(*st)->next = tmp->next;
-	tmp->prev = (*st)->prev;
-	(*st)->prev = tmp;
-	tmp->next = (*st);
-	if (out == 1)
-		write(1, "sa\n", 3);
+
+	if (size_st(st) > 1)
+	{
+		tmp = (*st)->next;
+		tmp->next->prev = (*st);
+		(*st)->prev->next = tmp;
+		tmp->prev = (*st)->prev;
+		(*st)->next = tmp->next;
+		tmp->next = (*st);
+		(*st)->prev = tmp;
+		(*st) = (*st)->prev;
+		if (out == 1)
+			write(1, "sa\n", 3);
+	}
 }
 
 void	sb(t_stack **st, int out)
 {
 	t_stack	*tmp;
 	
-	tmp = (*st)->next;
-	(*st)->next = tmp->next;
-	tmp->prev = (*st)->prev;
-	(*st)->prev = tmp;
-	tmp->next = (*st);
-	if (out == 1)
-		write(1, "sb\n", 3);
+	if (size_st(st) > 1)
+	{
+		tmp = (*st)->next;
+		tmp->next->prev = (*st);
+		(*st)->prev->next = tmp;
+		tmp->prev = (*st)->prev;
+		(*st)->next = tmp->next;
+		tmp->next = (*st);
+		(*st)->prev = tmp;
+		(*st) = (*st)->prev;
+		if (out == 1)
+			write(1, "sa\n", 3);
+	}
 }
 
 void	ss(t_stack **sta, t_stack **stb)

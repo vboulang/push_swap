@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:19:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/27 17:34:44 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:23:52 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,10 @@ int		check_order(t_stack **st)
 		if (tmp->value > tmp->next->value)
 			return (0);
 		tmp = tmp->next;
+		if (tmp->value == (*st)->value)
+			return (1);
 	}
-	if (tmp->value > tmp->next->value)
-		return (1);
-	else
-		return (0);
+	return (1);
 }
 
 void	create_stack(char **strs, t_stack **st)
@@ -41,7 +40,6 @@ void	create_stack(char **strs, t_stack **st)
 	i = 0;
 	while (strs[i])
 	{
-		dprintf(1, "strs %s\n", strs[i]);
 		new = new_st(ft_atoi(strs[i]));
 		addback_st(st, new);
 		i++;
@@ -63,8 +61,8 @@ void load_args(int ac, char **av, t_stack **st)
 		strs = ft_split(av[1], ' ');
 		if (!strs)
 		{
-		printf("Problems with memory allocation. Abort.");
-		exit(EXIT_FAILURE);
+			write(2, "Error\n", 6); 
+			exit(EXIT_FAILURE);
 		}
 		create_stack(strs, st);
 	}
@@ -88,17 +86,46 @@ void	print_value(t_stack **st)
 	}
 }
 
+void	print_value_rev(t_stack **st)
+{
+	int	i;
+	int ok;
+
+	ok = 1;
+	i = (*st)->value;
+	while ((*st)->prev && ok)
+	{
+		dprintf(1,"%d\n", (*st)->value);
+		(*st) = (*st)->prev;
+		if ((*st)->value == i)
+			ok = 0;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
-	//t_stack	*stack_b;
+	t_stack	*stack_b;
 
+	stack_a = NULL;
+	stack_b = NULL;
 	if (argc >= 2)
 	{
 		load_args(argc, argv, &stack_a);
 		dprintf(1, "\n\n");
 		print_value(&stack_a);
-		//push_swap(&stack_a, &stack_b);
+		dprintf(1, "\n\n");
+		// rb(&stack_a, 1);
+		// print_value(&stack_a);
+		// dprintf(1, "\n\n");
+		// rrb(&stack_a, 1);
+		// print_value(&stack_a);
+		// dprintf(1, "\n\n");
+		// sb(&stack_b, 1);
+		// print_value(&stack_a);
+		// dprintf(1, "\n\n");
+		// dprintf(1, "%d\n", size_st(&stack_a));
+		// push_swap(&stack_a, &stack_b);
 	}
 	return (0);
 }
