@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:19:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/28 17:23:52 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/29 10:53:12 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,11 @@ int	main(int argc, char **argv)
 	if (argc >= 2)
 	{
 		load_args(argc, argv, &stack_a);
+		//load_args(argc, ft_split("0 5 9 4", ' '), &stack_b);
 		dprintf(1, "\n\n");
 		print_value(&stack_a);
+		dprintf(1, "\n\n");
+		//print_value(&stack_b);
 		dprintf(1, "\n\n");
 		// rb(&stack_a, 1);
 		// print_value(&stack_a);
@@ -121,10 +124,12 @@ int	main(int argc, char **argv)
 		// rrb(&stack_a, 1);
 		// print_value(&stack_a);
 		// dprintf(1, "\n\n");
-		// sb(&stack_b, 1);
-		// print_value(&stack_a);
-		// dprintf(1, "\n\n");
-		// dprintf(1, "%d\n", size_st(&stack_a));
+		pa(&stack_a, &stack_b);
+		dprintf(1, "stack a\n\n");
+		print_value(&stack_a);
+		dprintf(1, "stack b\n\n");
+		print_value(&stack_b);
+		dprintf(1, "\n\n");
 		// push_swap(&stack_a, &stack_b);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:31:49 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/28 16:16:59 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/29 11:13:31 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	sa(t_stack **st, int out)
 		tmp = (*st)->next;
 		tmp->next->prev = (*st);
 		(*st)->prev->next = tmp;
-		tmp->prev = (*st)->prev;
-		(*st)->next = tmp->next;
+		if (size_st(st) > 2)
+		{
+			tmp->prev = (*st)->prev;
+			(*st)->next = tmp->next;
+		}
 		tmp->next = (*st);
 		(*st)->prev = tmp;
 		(*st) = (*st)->prev;
@@ -40,13 +43,16 @@ void	sb(t_stack **st, int out)
 		tmp = (*st)->next;
 		tmp->next->prev = (*st);
 		(*st)->prev->next = tmp;
-		tmp->prev = (*st)->prev;
-		(*st)->next = tmp->next;
+		if (size_st(st) > 2)
+		{
+			tmp->prev = (*st)->prev;
+			(*st)->next = tmp->next;
+		}
 		tmp->next = (*st);
 		(*st)->prev = tmp;
 		(*st) = (*st)->prev;
 		if (out == 1)
-			write(1, "sa\n", 3);
+			write(1, "sb\n", 3);
 	}
 }
 
@@ -57,24 +63,55 @@ void	ss(t_stack **sta, t_stack **stb)
 	write(1, "ss\n", 3);
 }
 
-void	pa(t_stack **sta, t_stack **stb)
+void	pa(t_stack **sta, t_stack **stb) //TODO change to fit pb... And reduce to 25 lines
 {
-	(*stb)->prev->next = (*stb)->next;
-	(*stb)->next->prev = (*stb)->prev;
-	(*stb)->next = (*sta);
-	(*stb)->prev = (*sta)->prev;
-	(*sta)->prev->next = (*stb);
-	(*sta)->prev = (*stb);
-	write(1, "pa\n", 3);
+	t_stack	*tmp;
+	
+	if ((*stb))
+	{
+		tmp = (*stb);
+		if (size_st(stb) == 1)
+			(*stb) = NULL;
+		else
+			(*stb) = (*stb)->next;
+		tmp->prev->next = tmp->next;
+		tmp->next->prev = tmp->prev;
+		tmp->next = (*sta);
+		tmp->prev = (*sta)->prev;
+		(*sta)->prev->next = tmp;
+		(*sta)->prev = tmp;
+		(*sta) = (*sta)->prev;
+		write(1, "pa\n", 3);
+	}
 }
 
 void	pb(t_stack **sta, t_stack **stb)
 {
-	(*sta)->prev->next = (*sta)->next;
-	(*sta)->next->prev = (*sta)->prev;
-	(*sta)->next = (*stb);
-	(*sta)->prev = (*stb)->prev;
-	(*stb)->prev->next = (*sta);
-	(*stb)->prev = (*sta);
-	write(1, "pb\n", 3);
+	t_stack	*tmp;
+	
+	if ((*sta))
+	{
+		tmp = (*sta);
+		if (size_st(sta) == 1)
+			(*sta) = NULL;
+		else
+			(*sta) = (*sta)->next;
+		tmp->prev->next = tmp->next;
+		tmp->next->prev = tmp->prev;
+		if ((*stb))
+		{
+			tmp->next = (*stb);
+			tmp->prev = (*stb)->prev;
+			(*stb)->prev->next = tmp;
+			(*stb)->prev = tmp;
+			(*stb) = (*stb)->prev;
+		}
+		else
+		{
+			(*stb) = tmp;
+			tmp->next = tmp;
+			tmp->prev = tmp;
+		}
+		write(1, "pb\n", 3);
+	}
 }
