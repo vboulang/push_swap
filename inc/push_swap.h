@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:17:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/28 16:15:08 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:25:49 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_stack
 	struct s_stack	*next;
 	struct s_stack	*prev;
 	int				value;
+	int				id;
 }	t_stack;
 
 void	loop(t_stack **st);

@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:24:36 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/29 10:09:02 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:58:22 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_stack	*new_st(int value)
 	st->value = value;
 	st->next = NULL;
 	st->prev = NULL;
+	st->id = -1;
 	return (st);
 }
 
