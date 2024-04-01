@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:40:55 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/28 16:10:17 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/30 13:58:49 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	rra(t_stack **st, int out)
 
 void	rrb(t_stack **st, int out)
 {
-	if(*st)
+	if (*st)
 	{
 		(*st) = (*st)->prev;
 		if (out == 1)

@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:31:49 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/29 11:13:31 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/03/30 13:59:55 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	sa(t_stack **st, int out)
 void	sb(t_stack **st, int out)
 {
 	t_stack	*tmp;
-	
+
 	if (size_st(st) > 1)
 	{
 		tmp = (*st)->next;
@@ -66,7 +66,7 @@ void	ss(t_stack **sta, t_stack **stb)
 void	pa(t_stack **sta, t_stack **stb) //TODO change to fit pb... And reduce to 25 lines
 {
 	t_stack	*tmp;
-	
+
 	if ((*stb))
 	{
 		tmp = (*stb);
@@ -88,7 +88,7 @@ void	pa(t_stack **sta, t_stack **stb) //TODO change to fit pb... And reduce to 2
 void	pb(t_stack **sta, t_stack **stb)
 {
 	t_stack	*tmp;
-	
+
 	if ((*sta))
 	{
 		tmp = (*sta);
