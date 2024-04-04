@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:31:49 by vboulang          #+#    #+#             */
-/*   Updated: 2024/03/30 13:59:55 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:57:19 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 void	sa(t_stack **st, int out)
 {
 	t_stack	*tmp;
+	int	size_stack;
 
-	if (size_st(st) > 1)
+	size_stack = size_st(st);
+	if (size_stack > 1)
 	{
 		tmp = (*st)->next;
 		tmp->next->prev = (*st);
 		(*st)->prev->next = tmp;
-		if (size_st(st) > 2)
+		if (size_stack > 2)
 		{
 			tmp->prev = (*st)->prev;
 			(*st)->next = tmp->next;
@@ -37,13 +39,15 @@ void	sa(t_stack **st, int out)
 void	sb(t_stack **st, int out)
 {
 	t_stack	*tmp;
+	int	size_stack;
 
-	if (size_st(st) > 1)
+	size_stack = size_st(st);
+	if (size_stack > 1)
 	{
 		tmp = (*st)->next;
 		tmp->next->prev = (*st);
 		(*st)->prev->next = tmp;
-		if (size_st(st) > 2)
+		if (size_stack > 2)
 		{
 			tmp->prev = (*st)->prev;
 			(*st)->next = tmp->next;
