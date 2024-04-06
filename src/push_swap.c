@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:19:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/04 17:04:50 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/06 12:19:01 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ t_stack	*get_min(t_stack **st)
 	{
 		if (tmp->id == -1 && min)
 		{
-				if (tmp->value < min->value)
-					min = tmp;
+			if (tmp->value < min->value)
+				min = tmp;
 		}
 		else if (tmp->id == -1 && !min)
 			min = tmp;
@@ -65,9 +65,9 @@ t_stack	*get_min(t_stack **st)
 
 void	set_id(t_stack **st)
 {
-	int	id;
+	int		id;
 	t_stack	*tmp;
-	
+
 	id = 0;
 	while (id < size_st(st))
 	{
@@ -101,339 +101,6 @@ int	get_max_id(t_stack **st)
 	return (max);
 }
 
-void	search_in_stb(int *count, t_stack **st)
-{
-	int	i;
-	t_stack	*tmp;
-	
-	tmp = (*st);
-	i = 0;
-	while (tmp->id != get_max_id(&tmp))
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	if (i <= size_st(&tmp)/2)
-	{
-		while (i-- != 0)
-			(*count)++;
-	}
-	else
-	{
-		while (i++ < size_st(&tmp))
-			(*count)++;
-	}
-}
-
-void	search_in_sta(int *count, t_stack **st)
-{
-	int	i;
-	t_stack	*tmp;
-	
-	tmp = (*st);
-	i = 0;
-	while (tmp->id != get_min_id(&tmp))
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	if (i <= size_st(&tmp)/2)
-	{
-		while (i-- != 0)
-			(*count)++;
-	}
-	else
-	{
-		while (i++ < size_st(&tmp))
-			(*count)++;
-	}
-}
-
-
-void	move_in_stb(t_stack **st)
-{
-	int	i;
-	t_stack	*tmp;
-	
-	tmp = (*st);
-	i = 0;
-	while (tmp->id != get_max_id(st))
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	if (i <= size_st(&tmp)/2)
-	{
-		while (i-- != 0)
-			rb(st, 1);
-	}
-	else
-	{
-		while (i++ < size_st(&tmp))
-			rrb(st, 1);
-	}
-}
-
-void	move_in_sta(t_stack **st)
-{
-	int	i;
-	t_stack	*tmp;
-	
-	tmp = (*st);
-	i = 0;
-	while (tmp->id != get_max_id(st))
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	if (i <= size_st(&tmp)/2)
-	{
-		while (i-- != 0)
-			ra(st, 1);
-	}
-	else
-	{
-		while (i++ < size_st(&tmp))
-			rra(st, 1);
-	}
-}
-
-void	place_best_spot_b(t_stack **sta, t_stack **stb)
-{
-	int		i;
-	int		diff;
-	int		pos;
-	t_stack	*tmp;
-	
-	i = 0;
-	pos = i;
-	tmp = (*stb);
-	diff = (*sta)->id - tmp->id;
-	tmp = tmp->next;
-	while (tmp->id != (*stb)->id)
-	{
-		if ((*sta)->id - tmp->id < diff && (*sta)->id - tmp->id > 0)
-		{
-			diff = (*sta)->id - tmp->id;
-			pos = i;
-		}
-		tmp = tmp->next;
-		i++;
-	}
-	if (pos <= size_st(&tmp)/2)
-	{
-		while (pos-- != 0)
-			rb(stb, 1);
-	}
-	else
-	{
-		while (pos++ < size_st(&tmp))
-			rrb(stb, 1);
-	}
-	pb (sta, stb);
-}
-
-void	place_best_spot_a(t_stack **sta, t_stack **stb)
-{
-	int		i;
-	int		pos;
-	int		diff;
-	t_stack	*tmp;
-	
-	i = 0;
-	pos = i;
-	tmp = (*sta);
-	diff = tmp->id - (*stb)->id;
-	tmp = tmp->next;
-	while (tmp->id != (*sta)->id)
-	{
-		if (tmp->id - (*stb)->id < diff && tmp->id - (*stb)->id > 0)
-		{
-			diff = tmp->id - (*stb)->id;
-			pos = i;
-		}
-		i++;
-		tmp = tmp->next;
-	}
-	if (pos <= size_st(&tmp)/2)
-	{
-		while (pos-- != 0)
-			ra(sta, 1);
-	}
-	else
-	{
-		while (pos++ < size_st(&tmp))
-			rra(sta, 1);
-	}
-	pa(sta, stb);
-}
-
-void	move_b(t_stack **sta, t_stack **stb, int i)
-{
-	if (i <= size_st(sta)/2)
-	{
-		while (i-- != 0)
-			ra(sta, 1);
-	}
-	else
-	{
-		while (i++ < size_st(sta))
-			rra(sta, 1);
-	}
-	if ((*sta)->id > get_max_id(stb) || (*sta)->id < get_min_id(stb))
-	{
-		move_in_stb(stb);
-		pb(sta, stb);
-	}
-	else
-		place_best_spot_b(sta, stb);
-}
-
-void	move_a(t_stack **sta, t_stack **stb, int i)
-{
-	if (i <= size_st(stb)/2)
-	{
-		while (i-- != 0)
-			rb(stb, 1);
-	}
-	else
-	{
-		while (i++ < size_st(stb))
-			rrb(stb, 1);
-	}
-	if ((*stb)->id > get_max_id(sta) || (*stb)->id < get_min_id(sta))
-	{
-		move_in_sta(sta);
-		pa(sta, stb);
-	}
-	else
-		place_best_spot_a(sta, stb);
-}
-
-int	calc_move_to_b(t_stack **sta, t_stack **stb, int i)
-{
-	int	count;
-	
-	count = 0;
-	if (i <= size_st(sta)/2)
-	{
-		while (i-- != 0)
-			count++;
-	}
-	else
-	{
-		while (i++ < size_st(sta))
-			count++;
-	}
-	if ((*sta)->id > get_max_id(stb) || (*sta)->id < get_min_id(stb))
-	{
-		search_in_stb(&count, stb);
-		count++;
-	}
-	return (count);
-}
-
-int	calc_move_to_a(t_stack **sta, t_stack **stb, int i)
-{
-	int	count;
-	
-	count = 0;
-	if (i <= size_st(stb)/2)
-	{
-		while (i-- != 0)
-			count++;
-	}
-	else
-	{
-		while (i++ < size_st(stb))
-			count++;
-	}
-	if ((*stb)->id > get_max_id(sta) || (*stb)->id < get_min_id(sta))
-	{
-		search_in_sta(&count, sta);
-		count++;
-	}
-	return (count);
-}
-
-void	move_best_b(t_stack **sta, t_stack **stb, int *best)
-{
-	int	min_i;
-	int	i;
-	
-	i = 0;
-	min_i = -1;
-	while (i < size_st(sta))
-	{
-		if (best[i] < min_i || min_i < 0)
-			min_i = i;
-		i++;
-	}
-	move_b(sta, stb, min_i);
-}
-
-void	move_best_a(t_stack **sta, t_stack **stb, int *best)
-{
-	int	min_i;
-	int	i;
-	
-	i = 0;
-	min_i = -1;
-	while (i < size_st(stb))
-	{
-		if (best[i] < min_i || min_i < 0)
-			min_i = i;
-		i++;
-	}
-	move_a(sta, stb, min_i); 
-}
-
-void	move_to_a(t_stack **sta, t_stack **stb)
-{
-	t_stack	*tmpa;
-	t_stack	*tmpb;
-	int		*best;
-	int		i;
-	
-	i = 0;
-	best = ft_calloc(size_st(stb), sizeof(int));
-	tmpa = (*sta);
-	tmpb = (*stb);
-	best[i] = calc_move_to_a(&tmpb, &tmpa, i);
-	i++;
-	tmpb = tmpb->next;
-	while (i < size_st(stb))
-	{
-		best[i] = calc_move_to_a(&tmpb, &tmpa, i);
-		i++;
-	}
-	move_best_a(sta, stb, best);
-	free(best);
-}
-
-void	move_to_b(t_stack **sta, t_stack **stb)
-{
-	t_stack	*tmpa;
-	t_stack	*tmpb;
-	int		*best;
-	int		i;
-	
-	i = 0;
-	best = ft_calloc(size_st(sta), sizeof(int));
-	tmpa = (*sta);
-	tmpb = (*stb);
-	best[i] = calc_move_to_b(&tmpa, &tmpb, i);
-	i++;
-	tmpa = tmpa->next;
-	while (i < size_st(sta))
-	{
-		best[i] = calc_move_to_b(&tmpa, &tmpb, i);
-		i++;
-	}
-	move_best_b(sta, stb, best);
-	free(best);
-}
-
 void	sort_3(t_stack **st)
 {
 	if (get_max_id(st) == (*st)->id)
@@ -463,6 +130,30 @@ void	sort_3(t_stack **st)
 	}
 }
 
+void	place_min_top(t_stack **sta)
+{
+	t_stack	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = (*sta);
+	while (tmp->id != get_min_id(sta))
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	if (i <= size_st(sta) / 2)
+	{
+		while (i-- != 0)
+			ra(sta, 1);
+	}
+	else
+	{
+		while (i++ < size_st(sta))
+			rra(sta, 1);
+	}
+}
+
 void	sort_big(t_stack **sta, t_stack **stb)
 {
 	pb(sta, stb);
@@ -478,31 +169,33 @@ void	sort_big(t_stack **sta, t_stack **stb)
 	sort_3(sta);
 	while (size_st(stb) != 0)
 		move_to_a(sta, stb);
+	place_min_top(sta);
+}
+
+void	sort_2(t_stack **st)
+{
+	if (get_max_id(st) == (*st)->id)
+		ra(st, 1);
 }
 
 void	push_swap(t_stack **sta, t_stack **stb)
 {
-	//dprintf(1, "amax %d\nbmax %d\nsizea %d\nsizeb %d\n", stats.max_a, stats.max_b, stats.size_a, stats.size_b);
 	if (size_st(sta) > 3)
 		sort_big(sta, stb);
 	else if (size_st(sta) == 3)
 	{
 		sort_3(sta);
 	}
-	// else if (size_st(sta) == 2)
-	// 	sort_2();
-		//dprintf(1, "amin %d\namax %d\nbmin %d\nbmax %d\nsizea %d\nsizeb %d\n", stats.min_a, stats.max_a, stats.min_b, stats.max_b, stats.size_a, stats.size_b);
-
-	
-
+	else if (size_st(sta) == 2)
+		sort_2(sta);
 }
 
-int		check_order(t_stack **st)
+int	check_order(t_stack **st)
 {
 	t_stack	*tmp;
 
 	tmp = (*st);
-	while(tmp->next)
+	while (tmp->next)
 	{
 		if (tmp->value > tmp->next->value)
 			return (0);
@@ -533,7 +226,7 @@ void	create_stack(char **strs, t_stack **st)
 	loop(st);
 }
 
-void load_args(int ac, char **av, t_stack **st)
+void	load_args(int ac, char **av, t_stack **st)
 {
 	char	**strs;
 
@@ -542,7 +235,7 @@ void load_args(int ac, char **av, t_stack **st)
 		strs = ft_split(av[1], ' ');
 		if (!strs)
 		{
-			write(2, "Error\n", 6); 
+			write(2, "Error\n", 6);
 			exit(EXIT_FAILURE);
 		}
 		create_stack(strs, st);
@@ -554,13 +247,13 @@ void load_args(int ac, char **av, t_stack **st)
 void	print_value(t_stack **st)
 {
 	int	i;
-	int ok;
+	int	ok;
 
 	ok = 1;
 	i = (*st)->value;
 	while ((*st)->next && ok)
 	{
-		dprintf(1,"%d\n", (*st)->value);
+		dprintf(1, "%d\n", (*st)->value);
 		(*st) = (*st)->next;
 		if ((*st)->value == i)
 			ok = 0;
@@ -570,13 +263,13 @@ void	print_value(t_stack **st)
 void	print_value_rev(t_stack **st)
 {
 	int	i;
-	int ok;
+	int	ok;
 
 	ok = 1;
 	i = (*st)->value;
 	while ((*st)->prev && ok)
 	{
-		dprintf(1,"%d\n", (*st)->value);
+		dprintf(1, "%d\n", (*st)->value);
 		(*st) = (*st)->prev;
 		if ((*st)->value == i)
 			ok = 0;

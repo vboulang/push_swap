@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:31:49 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/04 14:57:19 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:15:27 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	sa(t_stack **st, int out)
 {
 	t_stack	*tmp;
-	int	size_stack;
+	int		size_stack;
 
 	size_stack = size_st(st);
 	if (size_stack > 1)
@@ -39,7 +39,7 @@ void	sa(t_stack **st, int out)
 void	sb(t_stack **st, int out)
 {
 	t_stack	*tmp;
-	int	size_stack;
+	int		size_stack;
 
 	size_stack = size_st(st);
 	if (size_stack > 1)
@@ -67,7 +67,7 @@ void	ss(t_stack **sta, t_stack **stb)
 	write(1, "ss\n", 3);
 }
 
-void	pa(t_stack **sta, t_stack **stb) //TODO change to fit pb... And reduce to 25 lines
+void	pa(t_stack **sta, t_stack **stb)
 {
 	t_stack	*tmp;
 
@@ -103,13 +103,7 @@ void	pb(t_stack **sta, t_stack **stb)
 		tmp->prev->next = tmp->next;
 		tmp->next->prev = tmp->prev;
 		if ((*stb))
-		{
-			tmp->next = (*stb);
-			tmp->prev = (*stb)->prev;
-			(*stb)->prev->next = tmp;
-			(*stb)->prev = tmp;
-			(*stb) = (*stb)->prev;
-		}
+			pb_in(&tmp, stb);
 		else
 		{
 			(*stb) = tmp;

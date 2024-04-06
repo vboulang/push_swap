@@ -6,21 +6,11 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:24:36 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/01 16:10:40 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/06 11:43:19 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
-
-void	check_val(int a, int b)
-{
-	if (a == b)
-	{
-		write(2, "Error\n", 6);
-		//TODO FREE STACK ALREADY ALLOCATED
-		exit(EXIT_FAILURE);
-	}
-}
 
 t_stack	*new_st(int value)
 {
@@ -38,12 +28,11 @@ t_stack	*new_st(int value)
 
 t_stack	*last_n_check_st(t_stack *st, int val)
 {
-	t_stack *tmp;
-	
+	t_stack	*tmp;
+
 	tmp = st;
 	while (tmp->next)
 	{
-		//dprintf(1,"%d %d\n", tmp->value, val);
 		check_val(tmp->value, val);
 		tmp = tmp->next;
 	}
@@ -53,24 +42,18 @@ t_stack	*last_n_check_st(t_stack *st, int val)
 
 t_stack	*last_st(t_stack *st)
 {
-	t_stack *tmp;
-	
-	// if (!st)
-	// 	return (NULL);
+	t_stack	*tmp;
+
 	tmp = st;
 	while (tmp->next)
-	{
 		tmp = tmp->next;
-	}
 	return (tmp);
 }
 
-
 void	addback_st(t_stack **st, t_stack *new)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
-	
 	if (*st)
 	{
 		tmp = last_n_check_st(*st, new->value);
@@ -81,25 +64,12 @@ void	addback_st(t_stack **st, t_stack *new)
 		(*st) = new;
 }
 
-void	loop(t_stack **st)
-{
-	t_stack *tmp;
-
-	tmp = last_st((*st));
-	if (!tmp)
-	{
-		write(1, "END\n", 4);
-	}
-	(*st)->prev = tmp;
-	tmp->next = (*st);
-}
-
 int	size_st(t_stack **st)
 {
 	int	i;
 	int	count;
-	int ok;
-	
+	int	ok;
+
 	if (!(*st))
 		return (0);
 	count = 0;
