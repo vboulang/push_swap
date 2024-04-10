@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:17:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/05 16:16:09 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/10 07:10:31 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,30 @@ typedef struct s_stack
 	int				id;
 }	t_stack;
 
-void	print_value(t_stack **st);
-void	print_value_rev(t_stack **st);
+//functions in push_swap.c
+void	push_swap(t_stack **sta, t_stack **stb);
+int		check_order(t_stack **st);
 void	create_stack(char **strs, t_stack **st);
 void	load_args(int ac, char **av, t_stack **st);
 int		main(int argc, char **argv);
+
+//functions in push_swap_a.c
+void	move_in_sta(t_stack **st);
+void	place_best_spot_a(t_stack **sta, t_stack **stb);
+void	move_a(t_stack **sta, t_stack **stb, int i);
+int		calc_move_to_a(t_stack **sta, t_stack **stb, int i);
+void	move_best_a(t_stack **sta, t_stack **stb, int *best);
+void	search_in_sta(int *count, t_stack **sta, t_stack **stb);
+void	move_to_a(t_stack **sta, t_stack **stb);
+
+//functions in push_swap_b.c
+void	move_in_stb(t_stack **st);
+void	place_best_spot_b(t_stack **sta, t_stack **stb);
+void	move_b(t_stack **sta, t_stack **stb, int i);
+int		calc_move_to_b(t_stack **sta, t_stack **stb, int i);
+void	move_best_b(t_stack **sta, t_stack **stb, int *best);
+void	search_in_stb(int *count, t_stack **sta, t_stack **stb);
+void	move_to_b(t_stack **sta, t_stack **stb);
 
 //functions in misc.c
 void	check_val(int a, int b);
@@ -59,5 +78,19 @@ void	rrr(t_stack **sta, t_stack **stb);
 void	ra(t_stack **st, int out);
 void	rb(t_stack **st, int out);
 void	rr(t_stack **sta, t_stack **stb);
+
+//functions in id.c
+int		get_min_id(t_stack **st);
+void	set_id(t_stack **st);
+int		get_max_id(t_stack **st);
+
+//functions in sort_2_3.c
+void	sort_3(t_stack **st);
+void	sort_2(t_stack **st);
+
+//functions in sort_big.c
+void	sort_big(t_stack **sta, t_stack **stb);
+void	place_min_top(t_stack **sta);
+t_stack	*get_min(t_stack **st);
 
 #endif

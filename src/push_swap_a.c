@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 12:04:27 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/06 12:15:00 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/10 07:20:32 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	place_best_spot_a(t_stack **sta, t_stack **stb)
 	tmp = tmp->next;
 	while (tmp->id != (*sta)->id)
 	{
-		if (tmp->id - (*stb)->id < diff && tmp->id - (*stb)->id > 0)
+		if (tmp->id - (*stb)->id > diff && tmp->id - (*stb)->id > 0)
 		{
 			diff = tmp->id - (*stb)->id;
 			pos = i;
@@ -107,7 +107,7 @@ int	calc_move_to_a(t_stack **sta, t_stack **stb, int i)
 		while (i++ < size_st(stb))
 			count++;
 	}
-	if ((*stb)->id > get_max_id(sta) || (*stb)->id < get_min_id(sta))
+	if ((*stb)->id > get_max_id(sta) || (*stb)->id < get_min_id(sta))//check if condition is good
 	{
 		search_in_sta(&count, sta, stb);
 		count++;
@@ -145,7 +145,7 @@ void	search_in_sta(int *count, t_stack **sta, t_stack **stb)
 	pos = i;
 	while (tmp->id != (*sta)->id)
 	{
-		if (tmp->id - (*stb)->id < diff && tmp->id - (*stb)->id > 0)
+		if (tmp->id - (*stb)->id > diff && tmp->id - (*stb)->id > 0)
 		{
 			diff = tmp->id - (*stb)->id;
 			pos = i;
