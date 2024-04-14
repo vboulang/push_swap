@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 16:11:35 by vboulang          #+#    #+#              #
-#    Updated: 2024/04/11 20:12:13 by vboulang         ###   ########.fr        #
+#    Updated: 2024/04/14 11:58:47 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ SRC			= 	push_swap.c 	\
 				misc.c			\
 				push_swap_a.c	\
 				push_swap_b.c	\
-				id.c			\
+				id_count.c			\
 				sort_2_3.c		\
 				sort_big.c
 

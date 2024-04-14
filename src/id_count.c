@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   id.c                                               :+:      :+:    :+:   */
+/*   id_count.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 12:23:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/06 12:28:01 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:56:17 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,52 @@ int	get_min_id(t_stack **st)
 			ok = 0;
 	}
 	return (min);
+}
+
+void	initialize_count(t_stack **st)
+{
+	t_stack *tmp;
+
+	tmp = (*st);
+	(*st)->ra = 0;
+	(*st)->rb = 0;
+	(*st)->rr = 0;
+	(*st)->rra = 0;
+	(*st)->rrb = 0;
+	(*st)->rrr = 0;
+	(*st)->total = 0;
+	tmp = tmp->next;
+	while (tmp->id != (*st)->id)
+	{
+		(*st)->ra = 0;
+		(*st)->rb = 0;
+		(*st)->rr = 0;
+		(*st)->rra = 0;
+		(*st)->rrb = 0;
+		(*st)->rrr = 0;
+		(*st)->total = 0;
+		tmp = tmp->next;
+	}
+}
+
+void	get_total(t_stack **st)
+{
+	while ((*st)->ra > 0 && (*st)->rb > 0)
+	{
+		(*st)->rr++;
+		(*st)->ra--;
+		(*st)->rb--;
+		(*st)->total++;
+	}
+	while ((*st)->rra > 0 && (*st)->rrb > 0)
+	{
+		(*st)->rrr++;
+		(*st)->rra--;
+		(*st)->rrb--;
+		(*st)->total++;
+	}
+	(*st)->total += ((*st)->ra + (*st)->rb + (*st)->rra + (*st)->rrb);
+	//dprintf(1, "%d %d %d %d %d %d %d\n", (*st)->ra, (*st)->rb, (*st)->rr, (*st)->rra, (*st)->rrb, (*st)->rrr, (*st)->total);
 }
 
 void	set_id(t_stack **st)

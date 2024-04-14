@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 12:20:18 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/11 14:15:10 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:39:50 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,18 @@ void	sort_big(t_stack **sta, t_stack **stb)
 			sb(stb, 1);
 	}
 	while (size_st(sta) > 3)
+	{
+		initialize_count(sta);
+		initialize_count(stb);
 		move_to_b(sta, stb);
+	}
 	sort_3(sta);
 	while (size_st(stb) != 0)
+	{
+		initialize_count(sta);
+		initialize_count(stb);
 		move_to_a(sta, stb);
+	}
 	place_min_top(sta);
 }
 

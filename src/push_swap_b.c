@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 12:04:12 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/11 20:43:34 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:59:24 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ void	move_in_stb(t_stack **st)
 		i++;
 		tmp = tmp->next;
 	}
-	if (i <= size_st(&tmp) / 2)
-	{
-		while (i-- != 0)
-			rb(st, 1);
-	}
-	else
-	{
-		while (i++ < size_st(&tmp))
-			rrb(st, 1);
-	}
+	// if (i <= size_st(&tmp) / 2)
+	// {
+	// 	while (i-- != 0)
+	// 		rb(st, 1);
+	// }
+	// else
+	// {
+	// 	while (i++ < size_st(&tmp))
+	// 		rrb(st, 1);
+	// }
 }
 
-void	place_best_spot_b(t_stack **sta, t_stack **stb)
+void	calc_best_spot_b(t_stack **sta, t_stack **stb)
 {
 	int		i;
 	int		diff;
@@ -64,38 +64,87 @@ void	place_best_spot_b(t_stack **sta, t_stack **stb)
 	if (pos <= size_st(&tmp) / 2)
 	{
 		while (pos-- != 0)
-			rb(stb, 1);
+			(*sta)->rb++;
 	}
 	else
 	{
 		while (pos++ < size_st(&tmp))
-			rrb(stb, 1);
+			(*sta)->rrb++;
 	}
+	(*sta)->total++;
+}
+
+void	place_best_spot_b(t_stack **sta, t_stack **stb)
+{
+	int		i;
+	int		diff;
+	int		pos;
+	t_stack	*tmp;
+
+	i = 1;
+	pos = 0;
+	tmp = (*stb);
+	if ((*sta)->id - tmp->id < 0)
+		diff = 1000;
+	else
+		diff = (*sta)->id - tmp->id;
+	tmp = tmp->next;
+	while (tmp->id != (*stb)->id)
+	{
+		if ((*sta)->id - tmp->id < diff && (*sta)->id - tmp->id > 0)
+		{
+			diff = (*sta)->id - tmp->id;
+			pos = i;
+		}
+		tmp = tmp->next;
+		i++;
+	}
+	// if (pos <= size_st(&tmp) / 2)
+	// {
+	// 	while (pos-- != 0)
+	// 		rb(stb, 1);
+	// }
+	// else
+	// {
+	// 	while (pos++ < size_st(&tmp))
+	// 		rrb(stb, 1);
+	// }
 	pb (sta, stb);
 }
 
-void	move_b(t_stack **sta, t_stack **stb, int i)
+void	move_b(t_stack **sta, t_stack **stb, t_stack **tmp)
 {
-	if (i <= size_st(sta) / 2)
+	while ((*tmp)->ra > 0)
 	{
-		while (i-- != 0)
-			ra(sta, 1);
+		ra(sta, 1);
+		(*tmp)->ra--;
 	}
-	else
+	while ((*tmp)->rb > 0)
 	{
-		while (i++ < size_st(sta))
-			rra(sta, 1);
+		rb(stb, 1);
+		(*tmp)->rb--;
 	}
-	// if ((*sta)->id > (*stb)->id && (*sta)->id < (*stb)->prev->id)
-	// 	pb(sta, stb);
-	// else 
-	if ((*sta)->id > get_max_id(stb) || (*sta)->id < get_min_id(stb))
+	while ((*tmp)->rr > 0)
 	{
-		move_in_stb(stb);
-		pb(sta, stb);
+		rr(sta, stb);
+		(*tmp)->rr--;
 	}
-	else
-		place_best_spot_b(sta, stb);
+	while ((*tmp)->rra > 0)
+	{
+		rra(sta, 1);
+		(*tmp)->rra--;
+	}
+	while ((*tmp)->rrb > 0)
+	{
+		rrb(stb, 1);
+		(*tmp)->rrb--;
+	}
+	while ((*tmp)->rrr > 0)
+	{
+		rrr(sta, stb);
+		(*tmp)->rrr--;
+	}
+	pb(sta, stb);
 }
 
 int	calc_move_to_b(t_stack **sta, t_stack **stb, int i)
@@ -106,38 +155,51 @@ int	calc_move_to_b(t_stack **sta, t_stack **stb, int i)
 	if (i <= size_st(sta) / 2)
 	{
 		while (i-- != 0)
-			count++;
+			(*sta)->ra++;
 	}
 	else
 	{
 		while (i++ < size_st(sta))
-			count++;
+			(*sta)->rra++;
 	}
 	if ((*sta)->id > get_max_id(stb) || (*sta)->id < get_min_id(stb))
 	{
-		search_in_stb(&count, sta, stb);
-		count++;
+		search_in_stb(sta, stb);
+		(*sta)->total++;
 	}
+	else
+		calc_best_spot_b(sta, stb);
 	return (count);
 }
 
-void	move_best_b(t_stack **sta, t_stack **stb, int *best)
+void	move_best_b(t_stack **sta, t_stack **stb)
 {
-	int	min_i;
+	t_stack	*tmp;
+	int	min;
 	int	i;
+	int	min_id;
 
+	tmp = (*sta);
 	i = 0;
-	min_i = -1;
+	min = tmp->total;
+	//dprintf(1, "%d\n", tmp->total);
+	min_id = tmp->id;
 	while (i < size_st(sta))
 	{
-		if (best[i] < min_i || min_i < 0)
-			min_i = i;
+		if (tmp->total < min)
+		{
+			min = tmp->total;
+			min = tmp->id;
+		}
 		i++;
+		tmp = tmp->next;
 	}
-	move_b(sta, stb, min_i);
+	while (tmp->id != min_id)
+		tmp = tmp->next;
+	move_b(sta, stb, &tmp);
 }
 
-void	search_in_stb(int *count, t_stack **sta, t_stack **stb)
+void	search_in_stb(t_stack **sta, t_stack **stb)
 {
 	int		i;
 	int		diff;
@@ -162,34 +224,28 @@ void	search_in_stb(int *count, t_stack **sta, t_stack **stb)
 	if (pos <= size_st(&tmp) / 2)
 	{
 		while (pos-- != 0)
-			(*count)++;
+			(*sta)->ra++;
 	}
 	else
 	{
 		while (pos++ < size_st(&tmp))
-			(*count)++;
+			(*sta)->rra++;
 	}
 }
 
 void	move_to_b(t_stack **sta, t_stack **stb)
 {
-	t_stack	*tmpa;
-	t_stack	*tmpb;
-	int		*best;
+	t_stack	*tmp;
 	int		i;
 
 	i = 0;
-	best = ft_calloc(size_st(sta), sizeof(int));
-	tmpa = (*sta);
-	tmpb = (*stb);
-	best[i] = calc_move_to_b(&tmpa, &tmpb, i);
-	i++;
-	tmpa = tmpa->next;
+	tmp = (*sta);
 	while (i < size_st(sta))
 	{
-		best[i] = calc_move_to_b(&tmpa, &tmpb, i);
+		calc_move_to_b(&tmp, stb, i);
 		i++;
+		get_total(&tmp);
+		tmp = tmp->next;
 	}
-	move_best_b(sta, stb, best);
-	free(best);
+	move_best_b(sta, stb);
 }
