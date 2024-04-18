@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 12:20:18 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/14 13:39:50 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:05:58 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	sort_big(t_stack **sta, t_stack **stb)
 	pb(sta, stb);
 	if (size_st(sta) > 4)
 		pb(sta, stb);
-	if (size_st(stb) == 2)
-	{
-		if ((*stb)->id < (*stb)->next->id)
-			sb(stb, 1);
-	}
+	// if (size_st(stb) == 2)
+	// {
+	// 	if ((*stb)->id < (*stb)->next->id)
+	// 		sb(stb, 1);
+	// }
 	while (size_st(sta) > 3)
 	{
 		initialize_count(sta);

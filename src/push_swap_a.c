@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 12:04:27 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/14 14:10:03 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:47:59 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	move_in_sta(t_stack **st)
 {
-	int		i;
+	//int		i;
 	t_stack	*tmp;
 
 	tmp = (*st);
-	i = 0;
+	//i = 0;
 	while (tmp->id != get_min_id(st))
 	{
-		i++;
+		//i++;
 		tmp = tmp->next;
 	}
 	// if (i <= size_st(&tmp) / 2)
@@ -76,13 +76,13 @@ void	calc_best_spot_a(t_stack **sta, t_stack **stb)
 
 void	place_best_spot_a(t_stack **sta, t_stack **stb)
 {
-	int		i;
-	int		pos;
+	//int		i;
+	//int		pos;
 	int		diff;
 	t_stack	*tmp;
 
-	i = 1;
-	pos = 0;
+	//i = 1;
+	//pos = 0;
 	tmp = (*sta);
 	if (tmp->id - (*stb)->id < 0)
 		diff = 1000;
@@ -94,9 +94,9 @@ void	place_best_spot_a(t_stack **sta, t_stack **stb)
 		if (tmp->id - (*stb)->id < diff && tmp->id - (*stb)->id > 0)
 		{
 			diff = tmp->id - (*stb)->id;
-			pos = i;
+			//pos = i;
 		}
-		i++;
+	//	i++;
 		tmp = tmp->next;
 	}
 	// if (pos <= size_st(&tmp) / 2)
@@ -190,7 +190,7 @@ void	move_best_a(t_stack **sta, t_stack **stb)
 		if (tmp->total < min)
 		{
 			min = tmp->total;
-			min = tmp->id;
+			min_id = tmp->id;
 		}
 		i++;
 		tmp = tmp->next;
