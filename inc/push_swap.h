@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:17:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/14 14:02:20 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:20:12 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,24 @@ void	load_args(int ac, char **av, t_stack **st);
 int		main(int argc, char **argv);
 
 //functions in push_swap_a.c
-void	move_in_sta(t_stack **st);
-void	place_best_spot_a(t_stack **sta, t_stack **stb);
+void	calc_best_spot_a(t_stack **sta, t_stack **stb);
 void	move_a(t_stack **sta, t_stack **stb, t_stack **tmp);
-int		calc_move_to_a(t_stack **sta, t_stack **stb, int i);
+void	calc_move_to_a(t_stack **sta, t_stack **stb, int i);
 void	move_best_a(t_stack **sta, t_stack **stb);
 void	search_in_sta(t_stack **sta, t_stack **stb);
-void	move_to_a(t_stack **sta, t_stack **stb);
 
 //functions in push_swap_b.c
-void	move_in_stb(t_stack **st);
-void	place_best_spot_b(t_stack **sta, t_stack **stb);
+void	calc_best_spot_b(t_stack **sta, t_stack **stb);
 void	move_b(t_stack **sta, t_stack **stb, t_stack **tmp);
-int		calc_move_to_b(t_stack **sta, t_stack **stb, int i);
+void	calc_move_to_b(t_stack **sta, t_stack **stb, int i);
 void	move_best_b(t_stack **sta, t_stack **stb);
 void	search_in_stb(t_stack **sta, t_stack **stb);
-void	move_to_b(t_stack **sta, t_stack **stb);
 
 //functions in misc.c
 void	check_val(int a, int b);
 void	loop(t_stack **st);
 void	pb_in(t_stack **tmp, t_stack **stb);
+void	register_ra(t_stack **sta, t_stack **tmp, int pos);
 
 //functions in stack.c
 t_stack	*new_st(int value);
@@ -101,5 +98,7 @@ void	sort_2(t_stack **st);
 void	sort_big(t_stack **sta, t_stack **stb);
 void	place_min_top(t_stack **sta);
 t_stack	*get_min(t_stack **st);
+void	move_to_b(t_stack **sta, t_stack **stb);
+void	move_to_a(t_stack **sta, t_stack **stb);
 
 #endif

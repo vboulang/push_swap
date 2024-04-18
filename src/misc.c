@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:05:20 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/05 16:15:54 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:19:57 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,18 @@ void	pb_in(t_stack **tmp, t_stack **stb)
 	(*stb)->prev->next = (*tmp);
 	(*stb)->prev = (*tmp);
 	(*stb) = (*stb)->prev;
+}
+
+void	register_ra(t_stack **sta, t_stack **tmp, int pos)
+{
+	if (pos <= size_st(tmp) / 2)
+	{
+		while (pos-- != 0)
+			(*sta)->ra++;
+	}
+	else
+	{
+		while (pos++ < size_st(tmp))
+			(*sta)->rra++;
+	}
 }

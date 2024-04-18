@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 12:20:18 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/18 14:05:58 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:12:43 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ void	sort_big(t_stack **sta, t_stack **stb)
 	pb(sta, stb);
 	if (size_st(sta) > 4)
 		pb(sta, stb);
-	// if (size_st(stb) == 2)
-	// {
-	// 	if ((*stb)->id < (*stb)->next->id)
-	// 		sb(stb, 1);
-	// }
 	while (size_st(sta) > 3)
 	{
 		initialize_count(sta);
@@ -87,4 +82,38 @@ t_stack	*get_min(t_stack **st)
 			ok = 0;
 	}
 	return (min);
+}
+
+void	move_to_b(t_stack **sta, t_stack **stb)
+{
+	t_stack	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = (*sta);
+	while (i < size_st(sta))
+	{
+		calc_move_to_b(&tmp, stb, i);
+		i++;
+		get_total(&tmp);
+		tmp = tmp->next;
+	}
+	move_best_b(sta, stb);
+}
+
+void	move_to_a(t_stack **sta, t_stack **stb)
+{
+	t_stack	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = (*stb);
+	while (i < size_st(stb))
+	{
+		calc_move_to_a(sta, &tmp, i);
+		i++;
+		get_total(&tmp);
+		tmp = tmp->next;
+	}
+	move_best_a(sta, stb);
 }

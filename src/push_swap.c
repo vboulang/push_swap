@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:19:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/06 12:28:26 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:44:56 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	main(int argc, char **argv)
 		load_args(argc, argv, &stack_a);
 		set_id(&stack_a);
 		push_swap(&stack_a, &stack_b);
+		
 	}
 	return (0);
 }
