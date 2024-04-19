@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 12:04:12 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/18 16:29:13 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/19 10:44:17 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,36 +37,13 @@ void	calc_best_spot_b(t_stack **sta, t_stack **stb)
 		tmp = tmp->next;
 		i++;
 	}
-	if (pos <= size_st(&tmp) / 2)
-	{
-		while (pos-- != 0)
-			(*sta)->rb++;
-	}
-	else
-	{
-		while (pos++ < size_st(&tmp))
-			(*sta)->rrb++;
-	}
+	register_rb(sta, &tmp, pos);
 	(*sta)->total++;
 }
 
 void	move_b(t_stack **sta, t_stack **stb, t_stack **tmp)
 {
-	while ((*tmp)->ra > 0)
-	{
-		ra(sta, 1);
-		(*tmp)->ra--;
-	}
-	while ((*tmp)->rb > 0)
-	{
-		rb(stb, 1);
-		(*tmp)->rb--;
-	}
-	while ((*tmp)->rr > 0)
-	{
-		rr(sta, stb);
-		(*tmp)->rr--;
-	}
+	do_r_moves(sta, stb, tmp);
 	while ((*tmp)->rra > 0)
 	{
 		rra(sta, 1);
@@ -87,16 +64,7 @@ void	move_b(t_stack **sta, t_stack **stb, t_stack **tmp)
 
 void	calc_move_to_b(t_stack **sta, t_stack **stb, int i)
 {
-	if (i <= size_st(sta) / 2)
-	{
-		while (i-- != 0)
-			(*sta)->ra++;
-	}
-	else
-	{
-		while (i++ < size_st(sta))
-			(*sta)->rra++;
-	}
+	register_ra(sta, sta, i);
 	if ((*sta)->id > get_max_id(stb) || (*sta)->id < get_min_id(stb))
 	{
 		search_in_stb(sta, stb);
@@ -146,13 +114,13 @@ void	search_in_stb(t_stack **sta, t_stack **stb)
 	tmp = tmp->next;
 	while (tmp->id != (*stb)->id)
 	{
-		if ((*sta)->id - tmp->id < diff && (*sta)->id - tmp->id > 0)
+		if ((*sta)->id - tmp->id < diff)
 		{
 			diff = (*sta)->id - tmp->id;
-			pos = i;// + 1;
+			pos = i + 1;
 		}
 		tmp = tmp->next;
 		i++;
 	}
-	register_ra(sta, &tmp, pos);
+	register_rb(sta, &tmp, pos);
 }

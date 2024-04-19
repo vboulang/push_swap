@@ -6,20 +6,81 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:05:20 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/18 16:19:57 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:41:07 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void	check_val(int a, int b)
+void	check_val(int a, int b, t_stack **st)
 {
 	if (a == b)
 	{
 		write(2, "Error\n", 6);
-		//TODO FREE STACK ALREADY ALLOCATED
+		free_stack(st);
 		exit(EXIT_FAILURE);
 	}
+}
+
+void	check_arg_split(char **strs, int i, t_stack **st)
+{
+	int	j;
+
+	(void)st;
+	j = 0;
+	while (strs[i][j])
+	{
+		if (j == 0 && strs[i][j] == '-')
+			j++;
+		else if (ft_isdigit(strs[i][j]))
+			j++;
+		else
+		{
+			free_all(strs);
+			if ((*st))
+				free_stack(st);
+			write(2, "Error\n", 6);
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void	check_arg_no_split(char **strs, int i, t_stack **st)
+{
+	int	j;
+
+	(void)st;
+	j = 0;
+	while (strs[i][j])
+	{
+		if (j == 0 && strs[i][j] == '-')
+			j++;
+		else if (ft_isdigit(strs[i][j]))
+			j++;
+		else
+		{
+			if ((*st))
+				free_stack(st);
+			write(2, "Error\n", 6);
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+int	check_order(t_stack **st)
+{
+	t_stack	*tmp;
+
+	tmp = (*st);
+	while (tmp->next)
+	{
+		if (tmp->value > tmp->next->value)
+			return (0);
+		tmp = tmp->next;
+		if (tmp->value == (*st)->value)
+			return (1);
+	}
+	return (1);
 }
 
 void	loop(t_stack **st)
@@ -29,27 +90,4 @@ void	loop(t_stack **st)
 	tmp = last_st((*st));
 	(*st)->prev = tmp;
 	tmp->next = (*st);
-}
-
-void	pb_in(t_stack **tmp, t_stack **stb)
-{
-	(*tmp)->next = (*stb);
-	(*tmp)->prev = (*stb)->prev;
-	(*stb)->prev->next = (*tmp);
-	(*stb)->prev = (*tmp);
-	(*stb) = (*stb)->prev;
-}
-
-void	register_ra(t_stack **sta, t_stack **tmp, int pos)
-{
-	if (pos <= size_st(tmp) / 2)
-	{
-		while (pos-- != 0)
-			(*sta)->ra++;
-	}
-	else
-	{
-		while (pos++ < size_st(tmp))
-			(*sta)->rra++;
-	}
 }

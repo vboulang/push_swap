@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:17:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/18 16:20:12 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:44:33 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct s_stack
 
 //functions in push_swap.c
 void	push_swap(t_stack **sta, t_stack **stb);
-int		check_order(t_stack **st);
-void	create_stack(char **strs, t_stack **st);
+void	create_stack_split(char **strs, t_stack **st);
+void	create_stack_no_split(char **strs, t_stack **st);
 void	load_args(int ac, char **av, t_stack **st);
 int		main(int argc, char **argv);
 
@@ -54,10 +54,22 @@ void	move_best_b(t_stack **sta, t_stack **stb);
 void	search_in_stb(t_stack **sta, t_stack **stb);
 
 //functions in misc.c
-void	check_val(int a, int b);
+void	check_val(int a, int b, t_stack **st);
+void	check_arg_split(char **strs, int i, t_stack **st);
+void	check_arg_no_split(char **strs, int i, t_stack **st);
+int		check_order(t_stack **st);
 void	loop(t_stack **st);
+
+//functions in misc_moves.c
 void	pb_in(t_stack **tmp, t_stack **stb);
-void	register_ra(t_stack **sta, t_stack **tmp, int pos);
+void	register_rb(t_stack **st, t_stack **tmp, int pos);
+void	register_ra(t_stack **st, t_stack **tmp, int pos);
+void	do_r_moves(t_stack **sta, t_stack **stb, t_stack **tmp);
+
+//functions in free.c
+void	free_stack(t_stack **st);
+void	free_all(char **strs);
+void	free_and_null(char *str);
 
 //functions in stack.c
 t_stack	*new_st(int value);
@@ -83,12 +95,12 @@ void	ra(t_stack **st, int out);
 void	rb(t_stack **st, int out);
 void	rr(t_stack **sta, t_stack **stb);
 
-//functions in id.c
+//functions in id_count.c
 int		get_min_id(t_stack **st);
+void	initialize_count(t_stack **st);
+void	get_total(t_stack **st);
 void	set_id(t_stack **st);
 int		get_max_id(t_stack **st);
-void	get_total(t_stack **st);
-void	initialize_count(t_stack **st);
 
 //functions in sort_2_3.c
 void	sort_3(t_stack **st);

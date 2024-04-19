@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 12:23:05 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/18 16:36:33 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/19 10:47:36 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	get_min_id(t_stack **st)
 
 void	initialize_count(t_stack **st)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	tmp = (*st);
 	tmp->ra = 0;
@@ -64,7 +64,6 @@ void	initialize_count(t_stack **st)
 
 void	get_total(t_stack **st)
 {
-
 	while ((*st)->ra > 0 && (*st)->rb > 0)
 	{
 		(*st)->rr++;

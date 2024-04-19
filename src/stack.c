@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:24:36 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/11 15:06:42 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/19 11:18:11 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ t_stack	*last_n_check_st(t_stack *st, int val)
 	tmp = st;
 	while (tmp->next)
 	{
-		check_val(tmp->value, val);
+		check_val(tmp->value, val, &st);
 		tmp = tmp->next;
 	}
-	check_val(tmp->value, val);
+	check_val(tmp->value, val, &st);
 	return (tmp);
 }
 

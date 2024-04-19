@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:19:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/18 15:44:56 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:32:06 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,7 @@ void	push_swap(t_stack **sta, t_stack **stb)
 		sort_2(sta);
 }
 
-int	check_order(t_stack **st)
-{
-	t_stack	*tmp;
-
-	tmp = (*st);
-	while (tmp->next)
-	{
-		if (tmp->value > tmp->next->value)
-			return (0);
-		tmp = tmp->next;
-		if (tmp->value == (*st)->value)
-			return (1);
-	}
-	return (1);
-}
-
-void	create_stack(char **strs, t_stack **st)
+void	create_stack_split(char **strs, t_stack **st)
 {
 	int		i;
 	t_stack	*new;
@@ -48,13 +32,38 @@ void	create_stack(char **strs, t_stack **st)
 	i = 0;
 	while (strs[i])
 	{
+		check_arg_split(strs, i, st);
 		new = new_st(ft_atoi(strs[i]));
 		addback_st(st, new);
 		i++;
 	}
 	if (check_order(st))
 	{
-		//TODO FREE STRUCT
+		free_all(strs);
+		if (st)
+			free_stack(st);
+		exit(EXIT_SUCCESS);
+	}
+	loop(st);
+}
+
+void	create_stack_no_split(char **strs, t_stack **st)
+{
+	int		i;
+	t_stack	*new;
+
+	i = 0;
+	while (strs[i])
+	{
+		check_arg_no_split(strs, i, st);
+		new = new_st(ft_atoi(strs[i]));
+		addback_st(st, new);
+		i++;
+	}
+	if (check_order(st))
+	{
+		if (st)
+			free_stack(st);
 		exit(EXIT_SUCCESS);
 	}
 	loop(st);
@@ -72,10 +81,11 @@ void	load_args(int ac, char **av, t_stack **st)
 			write(2, "Error\n", 6);
 			exit(EXIT_FAILURE);
 		}
-		create_stack(strs, st);
+		create_stack_split(strs, st);
+		free_all(strs);
 	}
 	else
-		create_stack(++av, st);
+		create_stack_no_split(++av, st);
 }
 
 int	main(int argc, char **argv)
@@ -90,7 +100,7 @@ int	main(int argc, char **argv)
 		load_args(argc, argv, &stack_a);
 		set_id(&stack_a);
 		push_swap(&stack_a, &stack_b);
-		
+		free_stack(&stack_a);
 	}
 	return (0);
 }

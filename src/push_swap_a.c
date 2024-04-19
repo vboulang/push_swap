@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 12:04:27 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/18 16:37:23 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/19 10:54:00 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,36 +37,13 @@ void	calc_best_spot_a(t_stack **sta, t_stack **stb)
 		i++;
 		tmp = tmp->next;
 	}
-	if (pos <= size_st(&tmp) / 2)
-	{
-		while (pos-- != 0)
-			(*stb)->ra++;
-	}
-	else
-	{
-		while (pos++ < size_st(&tmp))
-			(*stb)->rra++;
-	}
+	register_ra(stb, &tmp, pos);
 	(*stb)->total++;
 }
 
 void	move_a(t_stack **sta, t_stack **stb, t_stack **tmp)
 {
-	while ((*tmp)->ra > 0)
-	{
-		ra(sta, 1);
-		(*tmp)->ra--;
-	}
-	while ((*tmp)->rb > 0)
-	{
-		rb(stb, 1);
-		(*tmp)->rb--;
-	}
-	while ((*tmp)->rr > 0)
-	{
-		rr(sta, stb);
-		(*tmp)->rr--;
-	}
+	do_r_moves(sta, stb, tmp);
 	while ((*tmp)->rra > 0)
 	{
 		rra(sta, 1);
@@ -87,17 +64,8 @@ void	move_a(t_stack **sta, t_stack **stb, t_stack **tmp)
 
 void	calc_move_to_a(t_stack **sta, t_stack **stb, int i)
 {
-	if (i <= size_st(stb) / 2)
-	{
-		while (i-- != 0)
-			(*stb)->rb++;
-	}
-	else
-	{
-		while (i++ < size_st(stb))
-			(*stb)->rrb++;
-	}
-	if ((*stb)->id > get_max_id(sta) || (*stb)->id < get_min_id(sta))//check if condition is good
+	register_rb(stb, stb, i);
+	if ((*stb)->id > get_max_id(sta) || (*stb)->id < get_min_id(sta))
 	{
 		search_in_sta(sta, stb);
 		(*stb)->total++;
@@ -109,9 +77,9 @@ void	calc_move_to_a(t_stack **sta, t_stack **stb, int i)
 void	move_best_a(t_stack **sta, t_stack **stb)
 {
 	t_stack	*tmp;
-	int	min;
-	int	i;
-	int	min_id;
+	int		min;
+	int		i;
+	int		min_id;
 
 	tmp = (*stb);
 	i = 0;
@@ -129,8 +97,6 @@ void	move_best_a(t_stack **sta, t_stack **stb)
 	}
 	while (tmp->id != min_id)
 		tmp = tmp->next;
-	dprintf(2, "id %d\n", tmp->id);
-	dprintf(2, "ra rb rra rrb %d %d %d %d\n", (*stb)->ra, (*stb)->rb, (*stb)->rra, (*stb)->rrb);
 	move_a(sta, stb, &tmp);
 }
 
@@ -148,7 +114,7 @@ void	search_in_sta(t_stack **sta, t_stack **stb)
 	pos = i;
 	while (tmp->id != (*sta)->id)
 	{
-		if (tmp->id - (*stb)->id < diff && tmp->id - (*stb)->id > 0)
+		if (tmp->id - (*stb)->id < diff)
 		{
 			diff = tmp->id - (*stb)->id;
 			pos = i + 1;
@@ -156,15 +122,5 @@ void	search_in_sta(t_stack **sta, t_stack **stb)
 		i++;
 		tmp = tmp->next;
 	}
-	if (pos <= size_st(&tmp) / 2)
-	{
-		while (pos-- != 0)
-			(*stb)->ra++;
-	}
-	else
-	{
-		while (pos++ < size_st(&tmp))
-			(*stb)->rra++;
-	}
+	register_ra(stb, &tmp, pos);
 }
-
