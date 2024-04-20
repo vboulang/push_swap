@@ -6,20 +6,20 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:24:36 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/19 11:18:11 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:54:19 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-t_stack	*new_st(int value)
+t_stack	*new_st(long value)
 {
 	t_stack	*st;
 
 	st = malloc(sizeof(t_stack));
 	if (!st)
 		return (NULL);
-	st->value = value;
+	st->value = (int)value;
 	st->next = NULL;
 	st->prev = NULL;
 	st->id = -1;

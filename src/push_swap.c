@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:19:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/19 12:32:06 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/20 09:55:48 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,15 @@ void	create_stack_split(char **strs, t_stack **st)
 {
 	int		i;
 	t_stack	*new;
+	long	val;
 
 	i = 0;
 	while (strs[i])
 	{
 		check_arg_split(strs, i, st);
-		new = new_st(ft_atoi(strs[i]));
+		val = ft_atol(strs[i]);
+		check_int_val(st, val, strs);
+		new = new_st(val);
 		addback_st(st, new);
 		i++;
 	}
@@ -51,12 +54,15 @@ void	create_stack_no_split(char **strs, t_stack **st)
 {
 	int		i;
 	t_stack	*new;
+	long	val;
 
 	i = 0;
 	while (strs[i])
 	{
 		check_arg_no_split(strs, i, st);
-		new = new_st(ft_atoi(strs[i]));
+		val = ft_atol(strs[i]);
+		check_int_val(st, val, NULL);
+		new = new_st(val);
 		addback_st(st, new);
 		i++;
 	}

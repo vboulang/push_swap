@@ -6,7 +6,7 @@
 #    By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/17 10:38:43 by vboulang          #+#    #+#              #
-#    Updated: 2024/03/22 15:45:17 by vboulang         ###   ########.fr        #
+#    Updated: 2024/04/20 09:44:55 by vboulang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ SRC = \
 	ft_memchr.c \
 	ft_memcmp.c \
 	ft_strnstr.c \
-	ft_atoi.c \
+	ft_atoi.c	\
+	ft_atol.c	\
 	ft_calloc.c \
 	ft_strdup.c \
 	ft_substr.c \

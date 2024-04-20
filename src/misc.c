@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:05:20 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/19 12:41:07 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/20 09:50:40 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ void	check_val(int a, int b, t_stack **st)
 	{
 		write(2, "Error\n", 6);
 		free_stack(st);
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	check_int_val(t_stack **st, long val, char **strs)
+{
+	if (val > INT_MAX || val < INT_MIN)
+	{
+		write(2, "Error\n", 6);
+		free_stack(st);
+		if (strs)
+			free_all(strs);
 		exit(EXIT_FAILURE);
 	}
 }

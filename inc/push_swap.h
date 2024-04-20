@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:17:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/19 12:44:33 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/20 09:55:23 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <limits.h>
 # include "../libft/inc/libft.h"
 
 typedef struct s_stack
@@ -59,6 +60,7 @@ void	check_arg_split(char **strs, int i, t_stack **st);
 void	check_arg_no_split(char **strs, int i, t_stack **st);
 int		check_order(t_stack **st);
 void	loop(t_stack **st);
+void	check_int_val(t_stack **st, long val, char **strs); //./
 
 //functions in misc_moves.c
 void	pb_in(t_stack **tmp, t_stack **stb);
@@ -72,7 +74,7 @@ void	free_all(char **strs);
 void	free_and_null(char *str);
 
 //functions in stack.c
-t_stack	*new_st(int value);
+t_stack	*new_st(long value);
 t_stack	*last_n_check_st(t_stack *st, int val);
 t_stack	*last_st(t_stack *st);
 void	addback_st(t_stack **st, t_stack *new);
