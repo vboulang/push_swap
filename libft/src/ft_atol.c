@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_latoi.c.c                                       :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:58:17 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/20 09:44:10 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:39:01 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_isspace(char c)
 
 long	ft_atol(const char *str)
 {
-	int	i;
+	int		i;
 	long	sign;
 	long	result;
 

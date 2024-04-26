@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:29:46 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/19 12:30:21 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:37:21 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,23 @@ void	free_stack(t_stack **st)
 {
 	t_stack	*tmp;
 
-	tmp = (*st);
-	if (tmp->prev)
+	if ((*st))
 	{
-		tmp->prev->next = NULL;
-		tmp->prev = NULL;
+		tmp = (*st);
+		if (tmp->prev)
+		{
+			tmp->prev->next = NULL;
+			tmp->prev = NULL;
+		}
+		while (tmp->next)
+		{
+			tmp = tmp->next;
+			free(tmp->prev);
+			tmp->prev = NULL;
+		}
+		free(tmp);
+		tmp = NULL;
 	}
-	while (tmp->next)
-	{
-		tmp = tmp->next;
-		free(tmp->prev);
-		tmp->prev = NULL;
-	}
-	free(tmp);
-	tmp = NULL;
 }
 
 void	free_all(char **strs)

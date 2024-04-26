@@ -6,7 +6,7 @@
 /*   By: vboulang <vboulang@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:19:01 by vboulang          #+#    #+#             */
-/*   Updated: 2024/04/20 09:55:48 by vboulang         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:29:48 by vboulang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	create_stack_split(char **strs, t_stack **st)
 	if (check_order(st))
 	{
 		free_all(strs);
-		if (st)
+		if ((*st))
 			free_stack(st);
 		exit(EXIT_SUCCESS);
 	}
@@ -68,7 +68,7 @@ void	create_stack_no_split(char **strs, t_stack **st)
 	}
 	if (check_order(st))
 	{
-		if (st)
+		if ((*st))
 			free_stack(st);
 		exit(EXIT_SUCCESS);
 	}
